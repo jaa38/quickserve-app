@@ -177,7 +177,7 @@ const WelcomeScreen: React.FC = () => {
           <Button
             title='Get Started'
             size='lg'
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('PhoneNumber')}
           />
           <Pressable onPress={() => navigation.navigate('Login')}>
             <AppText

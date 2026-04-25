@@ -37,8 +37,12 @@ export const theme = {
   text: {
     primary: colors.gray[900],
     secondary: colors.gray[500],
+
+    label: colors.gray[500],
     muted: colors.gray[400],
     inverse: '#FFFFFF',
+
+    placeholder: colors.gray[400],
 
     success: colors.green[700],
     error: colors.red[700],
@@ -55,6 +59,7 @@ export const theme = {
     default: colors.gray[200],
     strong: colors.gray[300],
     focus: colors.blue[600],
+    inputTextfield: colors.gray[300],
 
     success: colors.green[500],
     error: colors.red[500],

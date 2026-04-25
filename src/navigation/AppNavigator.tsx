@@ -5,12 +5,14 @@ import SplashScreen from '../screens/SplashScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
+import PhoneNumber from '../screens/Onboarding/PhoneNumber';
 
 export type RootStackParamList = {
   Splash: undefined;
   Welcome: undefined;
   Home: undefined;
   Login: undefined;
+  PhoneNumber: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,6 +24,7 @@ const AppNavigator = () => {
       <Stack.Screen name='Welcome' component={WelcomeScreen} />
       <Stack.Screen name='Login' component={LoginScreen} />
       <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name='PhoneNumber' component={PhoneNumber} />
     </Stack.Navigator>
   );
 };

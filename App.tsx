@@ -5,6 +5,7 @@ import * as SplashScreenExpo from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 
 import AppNavigator from './src/navigation/AppNavigator';
+import { CountryProvider } from './src/context/CountryContext';
 
 import {
   Poppins_400Regular,
@@ -33,9 +34,11 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
+      <CountryProvider>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </CountryProvider>
     </View>
   );
 }
