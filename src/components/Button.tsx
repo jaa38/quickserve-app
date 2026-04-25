@@ -1,5 +1,3 @@
-// src/components/Button.tsx
-
 import React from 'react';
 import {
   Pressable,
@@ -14,7 +12,7 @@ import { theme, typography } from '../themes';
 // Types
 // --------------------------------------
 
-type Variant = 'primary' | 'secondary' | 'success' | 'disabled';
+type Variant = 'primary' | 'secondary' | 'success';
 type Size = 'lg' | 'md' | 'sm';
 
 interface Props {
@@ -23,6 +21,7 @@ interface Props {
   size?: Size;
   fullWidth?: boolean;
   onPress?: () => void;
+  disabled?: boolean;
   style?: ViewStyle;
 }
 
@@ -55,6 +54,7 @@ export const Button: React.FC<Props> = ({
   size = 'md',
   fullWidth = true,
   onPress,
+  disabled = false,
   style,
 }) => {
   const buttonVariant = theme.buttons[variant];
@@ -62,29 +62,36 @@ export const Button: React.FC<Props> = ({
 
   return (
     <Pressable
-      onPress={variant === 'disabled' ? undefined : onPress}
+      onPress={disabled ? undefined : onPress}
+      disabled={disabled}
       style={({ pressed }) => [
         styles.base,
         {
           height: sizeConfig.height,
-          backgroundColor:
-            pressed && buttonVariant.pressed
-              ? buttonVariant.pressed
-              : buttonVariant.background,
+
+          backgroundColor: disabled
+            ? theme.buttons.disabled.background
+            : pressed && buttonVariant.pressed
+            ? buttonVariant.pressed
+            : buttonVariant.background,
 
           borderColor: buttonVariant.border,
           borderWidth: buttonVariant.border ? 1 : 0,
 
           width: fullWidth ? '100%' : undefined,
+
+          opacity: pressed ? 0.9 : 1,
         },
         style,
       ]}
     >
       <Text
         style={[
-          sizeConfig.text,
+          sizeConfig.text as TextStyle,
           {
-            color: buttonVariant.text,
+            color: disabled
+              ? theme.buttons.disabled.text
+              : buttonVariant.text,
           },
         ]}
       >
@@ -103,8 +110,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
 
-    paddingHorizontal: theme.spacing['2xl'], // 24
-    paddingVertical: theme.spacing.lg, // 16
+    paddingHorizontal: theme.spacing['2xl'],
+    paddingVertical: theme.spacing.lg,
 
     borderRadius: theme.radius.lg,
   },

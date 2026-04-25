@@ -1,25 +1,36 @@
-// src/screens/PhoneNumber.tsx
-
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/AppNavigator';
+
 import AppText from '../../components/AppText';
 import { Divider } from '../../components/Divider';
-import { spacing, theme } from '../../themes';
 import { StepIndicator } from '../../components/StepIndicator';
 import { PhoneInput } from '../../components/PhoneInput';
-
-import { useCountry } from '../../hooks/useCountry';
 import { Button } from '../../components/Button';
 
+import { spacing, theme } from '../../themes';
+
+// -----------------------------
+// Navigation Type
+// -----------------------------
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'PhoneNumber'
+>;
+
 const PhoneNumber = () => {
+  const navigation = useNavigation<NavigationProp>();
+
   const [phone, setPhone] = useState('');
 
+  // Simple validation
   const isValid = phone.replace(/\s/g, '').length === 11;
 
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
   return (
     <SafeAreaView
       style={{
@@ -41,16 +52,16 @@ const PhoneNumber = () => {
           }}
         >
           <Ionicons
-            name='chevron-back-outline'
+            name="chevron-back-outline"
             size={24}
             color={theme.text.primary}
           />
 
           <View style={{ marginLeft: spacing.xs }}>
-            <AppText variant='body-lg-bold'>Your Number</AppText>
+            <AppText variant="body-lg-bold">Your Number</AppText>
 
-            <AppText variant='body-md' color='secondary'>
-              Step 1 of 4
+            <AppText variant="body-md" color="secondary">
+              Step 1 of 3
             </AppText>
           </View>
         </View>
@@ -66,16 +77,19 @@ const PhoneNumber = () => {
           paddingHorizontal: theme.layout.screen.paddingHorizontal,
         }}
       >
+        {/* Progress Indicator */}
         <StepIndicator totalSteps={3} currentStep={1} />
 
-        {/* Title Section */}
+        {/* Title */}
         <View style={{ marginTop: spacing['2xl'] }}>
-          <AppText variant='heading-md'>Enter your phone number</AppText>
+          <AppText variant="heading-md">
+            Enter your phone number
+          </AppText>
 
           <AppText
-            variant='body-md'
-            color='secondary'
-            style={{ marginTop: spacing.xs }}
+            variant="body-md"
+            color="secondary"
+            style={{ marginTop: spacing.md }}
           >
             We'll send a 6-digit code to verify
           </AppText>
@@ -89,24 +103,28 @@ const PhoneNumber = () => {
           style={{ marginTop: spacing['2xl'] }}
         />
 
+        {/* Terms */}
         <View style={{ marginTop: spacing.lg }}>
-          <AppText variant='body-sm' color='secondary'>
-            By continue you agree to our
-            <AppText variant='body-sm' color='link'>
-              {' '}
-              Terms
+          <AppText variant="body-sm" color="secondary">
+            By continuing you agree to our
+            <AppText variant="body-sm" color="link">
+              {' '}Terms
             </AppText>{' '}
             and
-            <AppText variant='body-sm' color='link'>
-              {' '}
-              Privacy
+            <AppText variant="body-sm" color="link">
+              {' '}Privacy
             </AppText>
           </AppText>
         </View>
 
-        {/* Continue Button */}
-  
-        <Button size='lg' title='Continue' style={{marginTop: spacing['3xl']}} />
+        {/* Button */}
+        <Button
+          size="lg"
+          title="Continue"
+          disabled={!isValid}
+          onPress={() => navigation.navigate('VerifyCode')}
+          style={{ marginTop: spacing['3xl'] }}
+        />
       </View>
     </SafeAreaView>
   );

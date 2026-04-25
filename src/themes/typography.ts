@@ -1,6 +1,7 @@
 // src/theme/typography.ts
 
 export const fontFamily = {
+  light: 'Poppins-Light',
   regular: 'Poppins-Regular',
   medium: 'Poppins-Medium',
   semiBold: 'Poppins-SemiBold',
@@ -111,7 +112,20 @@ export const typography = {
     lineHeight: 14,
     letterSpacing: 0.4,
   },
+  helper: {
+    fontFamily: fontFamily.light,
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0.2,
+  },
+  helperBold: {
+    fontFamily: fontFamily.medium,
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0.2,
+  },
 
+  //
   // ======================
   // AMOUNTS (FINTECH CORE)
   // ======================
