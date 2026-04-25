@@ -7,12 +7,18 @@ import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PhoneNumber from '../screens/Onboarding/PhoneNumber';
 
+import VerifyCode from "../screens/Onboarding/VerifyCode";
+import CreatePin from "../screens/Onboarding/CreatePin";
+
 export type RootStackParamList = {
   Splash: undefined;
   Welcome: undefined;
   Home: undefined;
   Login: undefined;
+
   PhoneNumber: undefined;
+  VerifyCode: undefined;
+  CreatePin: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,6 +31,8 @@ const AppNavigator = () => {
       <Stack.Screen name='Login' component={LoginScreen} />
       <Stack.Screen name='Home' component={HomeScreen} />
       <Stack.Screen name='PhoneNumber' component={PhoneNumber} />
+        <Stack.Screen name='VerifyCode' component={VerifyCode} />
+        <Stack.Screen name='CreatePin' component={CreatePin} />
     </Stack.Navigator>
   );
 };
