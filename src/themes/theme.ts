@@ -129,6 +129,17 @@ export const theme = {
   },
 
   // ======================
+  // Icons
+  // ======================
+
+  icons: {
+    faceId: {
+      background: colors.blue[100],
+      icon: colors.blue[600],
+    },
+  },
+
+  // ======================
   // SPACING
   // ======================
   spacing,

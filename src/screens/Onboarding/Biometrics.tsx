@@ -18,12 +18,6 @@ type NavigationProp = NativeStackNavigationProp<
 const Biometrics = () => {
   const navigation = useNavigation<NavigationProp>();
 
-  const [code, setCode] = useState("");
-  const correctCode = "1234"; // simulate backend
-  const isComplete = code.length === 4;
-  const isError = isComplete && code !== correctCode;
-
-  const [isVerifying, setIsVerifying] = useState(false);
   return (
     <SafeAreaView
       style={{
@@ -71,7 +65,23 @@ const Biometrics = () => {
         }}
       >
         {/* Title Section */}
-        <View style={{ marginTop: spacing["2xl"] }}></View>
+        <View style={{ marginTop: spacing["2xl"] }}>
+          <View
+            style={{
+              padding: 36,
+              backgroundColor: theme.icons.faceId.background,
+              borderRadius: theme.radius.full,
+              alignSelf: "flex-start", // keeps it tight around the icon
+            }}
+          >
+            <Ionicons
+              name="finger-print-outline"
+              size={64}
+              color={theme.icons.faceId.icon}
+              aling
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
