@@ -154,7 +154,9 @@ export const OTPInput: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center", // 🔥 center everything
+    alignItems: "center",
+    gap: spacing.md, // 🔥 consistent spacing
     marginTop: spacing["2xl"],
   },
 

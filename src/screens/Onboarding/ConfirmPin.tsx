@@ -12,25 +12,39 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/AppNavigator";
 
+import { useRoute, RouteProp } from "@react-navigation/native";
+
 type NavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  "ConfirmPin"
+  "Biometrics"
 >;
 
-const CreatePin = () => {
+type RoutePropType = RouteProp<RootStackParamList, "ConfirmPin">;
+
+const ConfirmPin = () => {
   const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<RoutePropType>();
+
+  const originalPin = route.params.pin;
 
   const [code, setCode] = useState("");
 
   const isComplete = code.length === 4;
+  const isError = isComplete && code !== originalPin;
 
   useEffect(() => {
-    if (isComplete) {
+    if (isComplete && !isError) {
       setTimeout(() => {
-        navigation.navigate("ConfirmPin", { pin: code });
-      }, 200);
+        navigation.replace("Biometrics");
+      }, 300);
     }
   }, [code]);
+
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => setCode(""), 500);
+    }
+  }, [isError]);
 
   return (
     <SafeAreaView
@@ -59,7 +73,7 @@ const CreatePin = () => {
           />
 
           <View style={{ marginLeft: spacing.xs }}>
-            <AppText variant="body-lg-bold">Create Pin</AppText>
+            <AppText variant="body-lg-bold">Confirm Pin</AppText>
 
             <AppText variant="body-md" color="secondary">
               Step 3 of 4
@@ -82,18 +96,32 @@ const CreatePin = () => {
 
         {/* Title Section */}
         <View style={{ marginTop: spacing["2xl"] }}>
-          <AppText variant="heading-md">Set a 4-digit PIN</AppText>
+          <AppText variant="heading-md">Re-entert your PIN</AppText>
 
           <AppText
             variant="body-md"
             color="secondary"
             style={{ marginTop: spacing.md }}
           >
-            You'll use this to confirm every payment
+            Just to make sure we got right
           </AppText>
 
           <View style={{ alignItems: "center" }}>
-            <OTPInput length={4} value={code} onChange={setCode} />
+            <OTPInput
+              length={4}
+              value={code}
+              onChange={setCode}
+              error={isError}
+            />
+            {isError && (
+              <AppText
+                variant="body-sm"
+                color="error"
+                style={{ marginTop: spacing.sm }}
+              >
+                Incorrect Pin. Try again
+              </AppText>
+            )}
           </View>
 
           <View style={{ marginTop: spacing["2xl"], alignItems: "center" }}>
@@ -103,9 +131,10 @@ const CreatePin = () => {
           </View>
         </View>
 
+        {/* Continue Button */}
       </View>
     </SafeAreaView>
   );
 };
 
-export default CreatePin;
+export default ConfirmPin;
