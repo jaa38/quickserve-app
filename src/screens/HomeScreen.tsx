@@ -1,64 +1,78 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import AppText from "../components/AppText";
+import { Button } from "../components/Button";
+import { theme, spacing } from "../themes";
+
+import { removeToken } from "../services/auth";
+
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/AppNavigator";
+
+import ProtectedRoute from "../navigation/ProtectedRoute";
+
+// -----------------------------
+// Navigation Type
+// -----------------------------
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Home"
+>;
 
 const HomeScreen = () => {
+  const navigation = useNavigation<NavigationProp>();
+
+  // -----------------------------
+  // Logout Function
+  // -----------------------------
+  const handleLogout = async () => {
+    await removeToken();
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
+  };
+
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>QuickServe</Text>
+    <ProtectedRoute>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: theme.background.primary,
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: theme.layout.screen.paddingHorizontal,
+            paddingTop: spacing["3xl"],
+          }}
+        >
+          {/* HEADER */}
+          <AppText variant="heading-lg">Welcome 👋</AppText>
 
-      {/* Wallet Section */}
-      <View style={styles.walletCard}>
-        <Text style={styles.walletTitle}>Wallet Balance</Text>
-        <Text style={styles.walletAmount}>₦50,000</Text>
-      </View>
+          <AppText
+            variant="body-md"
+            color="secondary"
+            style={{ marginTop: spacing.sm }}
+          >
+            You are now logged in
+          </AppText>
 
-      {/* Services Section */}
-      <Text style={styles.sectionTitle}>Services</Text>
-
-      <View style={styles.servicesGrid}>
-        {/* We’ll plug ServiceCard here */}
-      </View>
-    </ScrollView>
+          {/* LOGOUT BUTTON */}
+          <Button
+            title="Logout"
+            onPress={handleLogout}
+            style={{ marginTop: spacing["3xl"] }}
+          />
+        </View>
+      </SafeAreaView>
+    </ProtectedRoute>
   );
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#F5F7FA",
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  walletCard: {
-    backgroundColor: "#1E90FF",
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 24,
-  },
-  walletTitle: {
-    color: "#fff",
-    fontSize: 14,
-  },
-  walletAmount: {
-    color: "#fff",
-    fontSize: 28,
-    fontWeight: "bold",
-    marginTop: 8,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 12,
-  },
-  servicesGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-});

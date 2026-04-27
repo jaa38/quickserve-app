@@ -14,6 +14,8 @@ import { RootStackParamList } from "../../navigation/AppNavigator";
 
 import { useRoute, RouteProp } from "@react-navigation/native";
 
+import { saveToken } from "../../services/auth";
+
 type NavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "Biometrics"
@@ -34,9 +36,15 @@ const ConfirmPin = () => {
 
   useEffect(() => {
     if (isComplete && !isError) {
-      setTimeout(() => {
+      const handleSuccess = async () => {
+        const fakeToken = "jwt_token_123456";
+
+        await saveToken(fakeToken); // 🔥 SAVE TOKEN HERE
+
         navigation.replace("Biometrics");
-      }, 300);
+      };
+
+      handleSuccess();
     }
   }, [code]);
 

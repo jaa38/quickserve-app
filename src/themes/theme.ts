@@ -1,8 +1,8 @@
 // src/theme/theme.ts
 
-import { colors } from './colors';
-import { spacing } from './spacing';
-import { layout } from './layout';
+import { colors } from "./colors";
+import { spacing } from "./spacing";
+import { layout } from "./layout";
 
 export const theme = {
   // ======================
@@ -23,7 +23,7 @@ export const theme = {
   background: {
     primary: colors.gray[50],
     secondary: colors.gray[100],
-    surface: '#FFFFFF',
+    surface: "#FFFFFF",
     surfaceMuted: colors.gray[100],
 
     success: colors.green[50],
@@ -40,7 +40,7 @@ export const theme = {
 
     label: colors.gray[500],
     muted: colors.gray[400],
-    inverse: '#FFFFFF',
+    inverse: "#FFFFFF",
 
     placeholder: colors.gray[400],
 
@@ -101,7 +101,7 @@ export const theme = {
   buttons: {
     primary: {
       background: colors.blue[600],
-      text: '#FFFFFF',
+      text: "#FFFFFF",
       pressed: colors.blue[800],
       border: undefined,
     },
@@ -115,7 +115,7 @@ export const theme = {
 
     success: {
       background: colors.green[600],
-      text: '#FFFFFF',
+      text: "#FFFFFF",
       pressed: undefined,
       border: undefined,
     },
@@ -124,7 +124,7 @@ export const theme = {
       background: colors.gray[200],
       text: colors.gray[400],
       pressed: colors.gray[200], // same as background
-      border: undefined
+      border: undefined,
     },
   },
 
@@ -134,6 +134,11 @@ export const theme = {
 
   icons: {
     faceId: {
+      background: colors.blue[100],
+      icon: colors.blue[600],
+    },
+
+    biometrics: {
       background: colors.blue[100],
       icon: colors.blue[600],
     },
