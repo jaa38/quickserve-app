@@ -101,6 +101,7 @@ export const OTPInput: React.FC<Props> = ({
 
           return (
             <TextInput
+              testID="otp-input"
               key={index}
               ref={(ref) => {
                 if (ref) inputs.current[index] = ref;

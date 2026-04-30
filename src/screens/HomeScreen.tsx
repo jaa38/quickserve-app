@@ -17,10 +17,7 @@ import ProtectedRoute from "../navigation/ProtectedRoute";
 // -----------------------------
 // Navigation Type
 // -----------------------------
-type NavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  "Home"
->;
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
